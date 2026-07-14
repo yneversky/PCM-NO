@@ -1,2 +1,3 @@
-# This file is generated from the final release assets by prepare_data_assets.py.
-# Run the preparation script before committing or publishing the release.
+55d3a4afeb3388b2f2557dca9fb47e04baa6385a82cf3186e57605feb7dacb2d  train.pt
+0bfadc50e1166a183a5f2a392a25ea5ab09950cd116c72f8bf321b485e6d8900  val.pt
+4912e8890bbbd31936dbf073d95fe782b767495039cd58a2cde73b1de5551312  test.pt

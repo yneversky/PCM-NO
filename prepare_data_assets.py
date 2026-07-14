@@ -102,9 +102,9 @@ def prepare_pns(repo_root: Path, source_dir: Path, n_sample: int, overwrite: boo
         raise FileExistsError(f"{output} already exists; pass --overwrite to replace it")
 
     sample = {
-        "u": train["u"][:n_sample].contiguous(),
-        "Re": train["Re"][:n_sample].contiguous(),
-        "nu": train["nu"][:n_sample].contiguous(),
+        "u": train["u"][:n_sample].detach().cpu().clone(),
+        "Re": train["Re"][:n_sample].detach().cpu().clone(),
+        "nu": train["nu"][:n_sample].detach().cpu().clone(),
         "cfg": train["cfg"],
         "source_split": "train",
         "source_indices": torch.arange(n_sample, dtype=torch.long),
