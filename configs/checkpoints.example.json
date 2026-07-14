@@ -1,0 +1,10 @@
+{
+  "pns": {
+    "finalproj": "outputs/main/pns/finalproj/seed_0/best.pt",
+    "pcmno": "outputs/main/pns/pcmno/seed_0/best.pt"
+  },
+  "lc": {
+    "finalproj": "outputs/main/lc/finalproj/seed_0/best.pt",
+    "pcmno": "outputs/main/lc/pcmno/seed_0/best.pt"
+  }
+}

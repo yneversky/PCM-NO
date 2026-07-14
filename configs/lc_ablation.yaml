@@ -1,0 +1,46 @@
+dataset:
+  name: lc
+  archive_path: data/lc/raw/mac_cavity_id_paper_N64_T56_Re100-500_lid0.8-1.2.npz
+physics:
+  resolution: 64
+  saved_interval: 0.006
+  reynolds_range: [100.0, 500.0]
+  lid_range: [0.8, 1.2]
+  drag: 0.03
+  initial_noise: 0.02
+data_generation:
+  resolution: 64
+  stored_states: 56
+  inner_steps: 10
+  dt: 0.0006
+  burn_in_intervals: 4
+  batch_size: 8
+  projection_iterations: 160
+  projection_tolerance: 0.0000001
+  projection_damping: 0.00000001
+splits: {train: 500, val: 100, test: 200}
+model: {stored_size: 66, modes: 16, width: 48, layers: 4}
+methods: [tangent_only, retraction_only, div_only, pcmno]
+projection:
+  train_iterations: 30
+  eval_iterations: 120
+  tolerance: 0.000001
+  damping: 0.00000001
+  train_solver: dct
+  eval_solver: cg
+training:
+  seeds: [0, 1, 2]
+  epochs: 100
+  batch_size: 32
+  rollout_horizon: 4
+  validation_horizon: 50
+  validate_every: 5
+  early_stopping_patience: 4
+  learning_rate: 0.0007
+  weight_decay: 0.0001
+  gradient_clip: 1.0
+  resume: true
+evaluation: {batch_size: 32, rollout_horizon: 50, report_horizons: [50]}
+loss: {lambda_div: 0.05, lambda_bc: 0.10, lambda_pde: 0.01, lambda_bb: 0.0}
+output: {root: outputs/ablation_lc}
+runtime: {device: auto, deterministic: false}

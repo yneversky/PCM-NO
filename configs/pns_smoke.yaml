@@ -1,0 +1,40 @@
+dataset:
+  name: pns
+  train_path: data/pns/sample/pns_sample.pt
+  val_path: data/pns/sample/pns_sample.pt
+  test_path: data/pns/sample/pns_sample.pt
+physics:
+  resolution: 64
+  length: 6.283185307179586
+  saved_interval: 0.05
+  reynolds_range: [100.0, 500.0]
+  forcing_wavenumber: 4
+  forcing_amplitude: 0.10
+  drag: 0.10
+  initial_velocity_rms: 1.0
+data_generation:
+  resolution: 64
+  stored_states: 56
+  substeps: 10
+  saved_interval: 0.05
+  burn_in_intervals: 8
+  batch_size: 2
+splits: {train: 2, val: 2, test: 2}
+model: {modes: 6, width: 12, layers: 2}
+methods: [pcmno]
+training:
+  seeds: [0]
+  epochs: 1
+  batch_size: 2
+  rollout_horizon: 2
+  validation_horizon: 2
+  validate_every: 1
+  early_stopping_patience: null
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  gradient_clip: 1.0
+  resume: false
+evaluation: {batch_size: 2, rollout_horizon: 3, report_horizons: [1, 2, 3]}
+loss: {lambda_div: 0.10, lambda_pde: 0.00001, lambda_bb: 0.0}
+output: {root: outputs/smoke}
+runtime: {device: auto, deterministic: true}

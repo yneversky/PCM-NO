@@ -1,0 +1,27 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+outputs/
+artifacts/
+figures/generated/
+
+# Full released datasets are downloaded here and remain outside Git history.
+data/pns/raw/
+data/lc/raw/
+
+# Checkpoints and temporary downloads.
+*.part
+*.tmp
+*.ckpt
+checkpoints/
+
+# Keep the small tracked samples under data/*/sample/.
+.DS_Store
+.ipynb_checkpoints/

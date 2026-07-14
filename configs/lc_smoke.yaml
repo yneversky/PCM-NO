@@ -1,0 +1,46 @@
+dataset:
+  name: lc
+  archive_path: data/lc/sample/lc_sample.npz
+physics:
+  resolution: 64
+  saved_interval: 0.006
+  reynolds_range: [100.0, 500.0]
+  lid_range: [0.8, 1.2]
+  drag: 0.03
+  initial_noise: 0.02
+data_generation:
+  resolution: 64
+  stored_states: 56
+  inner_steps: 10
+  dt: 0.0006
+  burn_in_intervals: 4
+  batch_size: 2
+  projection_iterations: 10
+  projection_tolerance: 0.000001
+  projection_damping: 0.00000001
+splits: {train: 2, val: 2, test: 2}
+model: {stored_size: 66, modes: 6, width: 12, layers: 2}
+methods: [pcmno]
+projection:
+  train_iterations: 4
+  eval_iterations: 6
+  tolerance: 0.000001
+  damping: 0.00000001
+  train_solver: cg
+  eval_solver: cg
+training:
+  seeds: [0]
+  epochs: 1
+  batch_size: 2
+  rollout_horizon: 2
+  validation_horizon: 2
+  validate_every: 1
+  early_stopping_patience: null
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  gradient_clip: 1.0
+  resume: false
+evaluation: {batch_size: 2, rollout_horizon: 3, report_horizons: [1, 2, 3]}
+loss: {lambda_div: 0.05, lambda_bc: 0.10, lambda_pde: 0.01, lambda_bb: 0.0}
+output: {root: outputs/smoke}
+runtime: {device: auto, deterministic: true}
