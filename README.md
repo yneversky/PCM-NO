@@ -32,7 +32,6 @@ The code supports the two configurations studied in the paper:
 ├── data/
 │   ├── pns/                    # P-NS downloader, metadata, checksum, sample
 │   └── lc/                     # LC downloader, metadata, checksum, sample
-├── notebooks/                 # Lightweight Colab entry points
 ├── reproduction/              # Ordered reproduction commands
 ├── scripts/                   # Training, evaluation, stress, diagnostics, plots
 ├── src/pcmno/
