@@ -316,14 +316,6 @@ python scripts/make_qualitative.py \
 
 The displayed trajectory is selected by median final-step ground-truth kinetic energy, independently of model error.
 
-## Protocol notes
-
-- P-NS uses a dealiased spectral Helmholtz projection for both tangent filtering and state retraction.
-- LC uses the same MAC divergence, boundary lifting, free-face adjoint, and normal-equation projection in data handling, training, and evaluation.
-- The released LC generator evolves diffusion and linear drag, then applies boundary enforcement and pressure projection. The public code follows that released generator exactly and does not add an unimplemented advection term.
-- `DivReg` and `PINO` use physical terms only during training, so their inference graph is the ambient FNO graph.
-- The structural propositions guarantee the selected solver-level constraints. They do not imply rollout accuracy, long-horizon stability, or full PDE correctness.
-
 ## Reproducibility scope
 
 The repository contains training and evaluation code, solver-based data generation, stress protocols, component ablations, mechanism diagnostics, runtime measurement, and figure export. Full paper-scale reproduction requires the released datasets, sufficient GPU time, and the paper configurations. Pretrained checkpoints are not required for training from scratch and are not assumed to be present unless released separately.
