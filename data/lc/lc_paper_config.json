@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "1.0.0",
+  "dataset_name": "Lid-driven cavity flow",
+  "abbreviation": "LC",
+  "release_tag": "lc-data-v1.0.0",
+  "source_notebook": "PCMNO_Dataset2_MACSolver_Table1.ipynb",
+  "file_format": "NumPy compressed NPZ archive",
+  "files": {
+    "full_dataset": "mac_cavity_id_paper_N64_T56_Re100-500_lid0.8-1.2.npz",
+    "sample": "sample/lc_sample.npz"
+  },
+  "domain": {
+    "geometry": "unit square",
+    "x_range": [0.0, 1.0],
+    "y_range": [0.0, 1.0]
+  },
+  "state": {
+    "quantity": "velocity",
+    "components": ["u", "v"],
+    "array_key": "states",
+    "array_layout": ["trajectory", "time", "component", "row", "column"],
+    "dtype": "float32",
+    "active_grid_resolution": [64, 64],
+    "stored_tensor_resolution": [66, 66],
+    "storage_note": "The N+2 by N+2 arrays include MAC boundary, ghost, and padding entries.",
+    "stored_states_per_trajectory": 56,
+    "one_step_transitions_per_trajectory": 55
+  },
+  "splits": {
+    "total_trajectories": 800,
+    "train_trajectories": 500,
+    "validation_trajectories": 100,
+    "test_trajectories": 200,
+    "index_keys": ["idx_train", "idx_val", "idx_test"]
+  },
+  "physical_parameters": {
+    "reynolds_number_distribution": "uniform",
+    "reynolds_number_range": [100.0, 500.0],
+    "viscosity_definition": "nu = 1 / Re",
+    "lid_velocity_distribution": "uniform",
+    "lid_velocity_range": [0.8, 1.2],
+    "linear_drag": 0.03,
+    "initial_noise_scale": 0.02
+  },
+  "time_discretization": {
+    "solver_time_step": 0.0006,
+    "solver_steps_per_saved_interval": 10,
+    "saved_state_interval": 0.006,
+    "burn_in_saved_intervals": 4,
+    "burn_in_solver_steps": 40
+  },
+  "numerical_solver": {
+    "spatial_discretization": "MAC-style finite-volume grid",
+    "state_update": "diffusion and linear drag followed by boundary enforcement and pressure projection",
+    "projection_iterations": 160,
+    "projection_tolerance": 1e-7,
+    "projection_damping": 1e-8,
+    "boundary_conditions": "no-slip walls with a prescribed moving lid"
+  },
+  "random_generation": {
+    "global_seed": 0,
+    "generation_batch_size": 8,
+    "parameter_sampling": "Independent uniform samples of Re and lid velocity",
+    "split_assignment": "The first 500 trajectories are training, the next 100 validation, and the final 200 test."
+  },
+  "paper_protocol": {
+    "training_rollout_horizon": 4,
+    "evaluation_horizons": [1, 20, 50]
+  },
+  "npz_keys": {
+    "states": "Velocity trajectories",
+    "lid": "Per-trajectory lid velocities",
+    "Re": "Per-trajectory Reynolds numbers",
+    "nu": "Per-trajectory kinematic viscosities",
+    "idx_train": "Training trajectory indices",
+    "idx_val": "Validation trajectory indices",
+    "idx_test": "Test trajectory indices",
+    "N": "Active grid size",
+    "S": "Stored tensor size N+2",
+    "saved_steps": "Stored states per trajectory",
+    "inner_steps": "Solver steps per saved interval",
+    "dt": "Solver time step",
+    "dt_save": "Saved-state interval"
+  }
+}

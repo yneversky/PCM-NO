@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "dataset_version": "1.0.0",
+  "dataset_name": "Periodic Navier-Stokes",
+  "abbreviation": "P-NS",
+  "release_tag": "pns-data-v1.0.0",
+  "source_notebook": "PCMNO_Dataset1_Table1_Paper_Run.ipynb",
+  "file_format": "PyTorch serialized dictionary",
+  "files": {
+    "train": "train.pt",
+    "validation": "val.pt",
+    "test": "test.pt",
+    "sample": "sample/pns_sample.pt"
+  },
+  "domain": {
+    "geometry": "periodic square",
+    "x_range": [0.0, 6.283185307179586],
+    "y_range": [0.0, 6.283185307179586]
+  },
+  "state": {
+    "quantity": "velocity",
+    "components": ["u_x", "u_y"],
+    "tensor_key": "u",
+    "tensor_layout": ["trajectory", "time", "component", "x", "y"],
+    "dtype": "float32",
+    "spatial_resolution": [64, 64],
+    "stored_states_per_trajectory": 56,
+    "one_step_transitions_per_trajectory": 55
+  },
+  "splits": {
+    "train_trajectories": 500,
+    "validation_trajectories": 100,
+    "test_trajectories": 200
+  },
+  "physical_parameters": {
+    "reynolds_number_distribution": "uniform",
+    "reynolds_number_range": [100.0, 500.0],
+    "viscosity_definition": "nu = 1 / Re",
+    "kolmogorov_forcing": "f = (A sin(k_f y), 0)",
+    "forcing_amplitude": 0.1,
+    "forcing_wavenumber": 4,
+    "linear_drag": 0.1,
+    "initial_velocity_rms": 1.0
+  },
+  "time_discretization": {
+    "saved_state_interval": 0.05,
+    "solver_substeps_per_saved_interval": 10,
+    "solver_time_step": 0.005,
+    "burn_in_saved_intervals": 8,
+    "burn_in_solver_steps": 80
+  },
+  "numerical_solver": {
+    "evolution_representation": "vorticity",
+    "stored_representation": "velocity",
+    "spatial_discretization": "pseudo-spectral",
+    "dealiasing": "2/3 rule",
+    "time_integrator": "classical fourth-order Runge-Kutta",
+    "velocity_reconstruction": "stream-function differentiation",
+    "stored_state_projection": "dealiased spectral Helmholtz projection"
+  },
+  "random_generation": {
+    "split_seed_offsets": {
+      "train": 10000,
+      "validation": 20000,
+      "test": 30000
+    },
+    "shard_size": 8,
+    "note": "The seed for shard s is split_seed_offset + s."
+  },
+  "paper_protocol": {
+    "training_rollout_horizon": 4,
+    "validation_rollout_horizon": 20,
+    "evaluation_horizons": [1, 20, 50]
+  },
+  "serialized_keys": {
+    "u": "Velocity trajectories",
+    "Re": "Per-trajectory Reynolds numbers",
+    "nu": "Per-trajectory kinematic viscosities",
+    "cfg": "Data-generation configuration dictionary"
+  }
+}
