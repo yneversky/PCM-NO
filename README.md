@@ -2,16 +2,20 @@
 
 This repository contains the reference implementation of **Physical-Constraint-Manifold Neural Operators (PCM-NO)**. PCM-NO constrains an autoregressive neural-operator transition using fixed layers derived from the discrete operators of a numerical solver:
 
-$
+### PCM-NO transition
+
+```math
+u_{h,k+1}
+=
 \Phi_\theta(u_{h,k};\mu,g_h,h)
 =
 R_h\!\left(
-    u_{h,k}
-    +
-    \Delta t\,P_hK_\theta(u_{h,k},\mu,g_h,h);
-    b_h
+u_{h,k}
++
+\Delta t\,P_hK_\theta(u_{h,k},\mu,g_h,h);
+b_h
 \right).
-$
+```
 
 The neural backbone predicts a candidate residual update. The tangent projection \(P_h\) removes the constraint-incompatible component before state advancement, and the metric retraction \(R_h\) returns the advanced state to the solver-defined affine feasible set. Only the backbone \(K_\theta\) is trainable.
 
